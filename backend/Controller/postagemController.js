@@ -46,3 +46,20 @@ export const criarPostagem = async (request, response) => {
     response.status(500).json({ message: "erro ao buscar postagens" });
   }
 };
+
+export const buscarPostagemPorId = async (request, response) =>{
+    const {id}= request.params 
+  
+    try {
+      const PostagemId = await Postagem.findOne({ where: { id } });
+      if (Postagem === null) {
+        response.status(404).json({ message: "Postagem não encontrada" });
+        return;
+      }
+      response.status(200).json(PostagemId);
+    } catch (error) {
+      response.status(500).json({ err: "Erro ao buscar postagem por id" });
+      return;
+    }
+  }
+  
