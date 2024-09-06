@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { buscarPostagemPorId } from "../../Controller/postagemController.js";
+import { buscarPostagemPorId } from "../Controller/postagemController.js";
 
 import { criarPostagem, getTodosPostagens} from "../Controller/postagemController.js";
 
