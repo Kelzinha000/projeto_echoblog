@@ -7,3 +7,4 @@ const conn = new Sequelize("projeto_echoblog", "root", "Sen@iDev77!.", {
 })
 
 export default conn; 
+
