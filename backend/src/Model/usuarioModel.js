@@ -1,34 +1,33 @@
 import { DataTypes } from "sequelize";
 import conn from "../Config/Conn.js";
-const Postagem = conn.define("Postagens",{ 
+
+const Usuarios = conn.define("Usuarios",{ 
     id:{
         type:DataTypes.UUID, 
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
 
     }, 
-    titulo:{
+    nome:{
         type: DataTypes.STRING, 
         allowNull: false, 
         required: true 
     }, 
-    conteudo:{
-        type: DataTypes.STRING, 
+    email:{
+        type:DataTypes.STRING, 
         allowNull: false, 
         required: true 
     },
-    autor: {
-        type: DataTypes.STRING, 
-        allowNull: false, 
-        required: true 
+    senha :{
+        type:DataTypes.INTEGER, 
+        allowNull: false,
+        required: true
     },
-    dataPublicao:{
-        type: DataTypes.DATE
-    }, 
-    // image:{
-    //     type: DataTypes.image
-    // }
-    
-})
+    papel:{
+        type:DataTypes.ENUM,
+        values:["leitor", "administrador", "autor"]
+    }
 
-export default Postagem; 
+}) 
+
+export default Usuarios; 
