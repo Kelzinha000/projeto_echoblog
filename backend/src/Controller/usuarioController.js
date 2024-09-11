@@ -68,4 +68,30 @@ export const getAdm = async (request, response) => {
     return;
   }
 };
-;
+
+
+export const atualizarPerfil = async (request, response)=>{
+  const { id } = request.params;
+
+  try {
+    const usuario = await Usuario.findOne({ raw: true, where: { id } });
+    if (usuario === null) {
+      response.status(404).json({ message: "Usuario não encontrada" });
+      return;
+    }
+
+    if (usuario.status === "pendente") {
+      await usuario.update({ status: "concluida" }, { where: { id } });
+    } else if (usuario.status === "concluida") {
+      await usuario.update({ status: "pendente" }, { where: { id } });
+    }
+
+    // novaConsulta
+    const usuarioAtualizada = await Usuario.findOne({ raw: true, where: { id } });
+    response.status(200).json(usuarioAtualizada);
+    // console.log(tarefa.status);
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ err: "Error ao atualizar tarefa" });
+  }
+}

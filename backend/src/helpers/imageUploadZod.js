@@ -9,8 +9,8 @@ const __dirname = path.dirname(__filename);
 
 const imageStorage = multer.diskStorage({
     destination:(request, file, cb)=>{
-       
             let folder = ""
+            
             if(request.baseUrl.includes("usuarios")){
                 folder = "usuarios"
             }if(request.baseUrl.includes("postagens")){
@@ -27,9 +27,9 @@ const imageStorage = multer.diskStorage({
 const imageUpload = multer({
     storage: imageStorage, 
     fileFilter(request, file, cb){
-        if(file.originalname.match(/\.(png||jpg)$/)){
-            return cb(new Error("Por favor, envie apenas jpg o png"))
-        }
+         if(!file.originalname.match(/\.(png||jpg)$/)){
+             return cb(new Error("Por favor, envie apenas jpg o png"))
+         }
         cb(null, true)
     }
 
