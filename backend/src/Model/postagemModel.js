@@ -22,12 +22,12 @@ const Postagem = conn.define("Postagens",{
         allowNull: false, 
         required: true 
     },
-    dataPublicao:{
-        type: DataTypes.DATE
-    }, 
-    // image:{
-    //     type: DataTypes.image
-    // }
+    // dataPublicao:{
+    //     type: DataTypes.DATE
+    // }, 
+     imagem:{
+        type: DataTypes.image
+     }
     
 })
 

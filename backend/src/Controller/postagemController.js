@@ -3,14 +3,20 @@ import Postagens from "../Model/postagemModel.js";
 
 export const criarPostagem = async (request, response) => {
   const { id, titulo, conteudo, autor, dataPublicao, image } = request.body;
-
+ 
+  let imagem 
+  if(request.file){
+    imagem = request.file.filename
+  }else{
+    imagem = "postagemDefaut.png"
+  }
   const novoPostagem = {
     id,
     titulo,
     conteudo,
     autor,
     dataPublicao,
-    image,
+    imagem,
   };
   try {
     await Postagens.create(novoPostagem);
