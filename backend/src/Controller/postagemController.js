@@ -4,12 +4,6 @@ import Postagens from "../Model/postagemModel.js";
 export const criarPostagem = async (request, response) => {
   const { id, titulo, conteudo, autor } = request.body;
 
-  let imagem;
-  if (request.file) {
-    imagem = request.file.filename;
-  } else {
-    imagem = "postagemDefaut.png";
-  }
   const novoPostagem = {
     id,
     titulo,
@@ -30,7 +24,6 @@ export const getTodosPostagens = async (request, response) => {
   const page = paserInt(request.query.page) || 1;
   const limit = parseInt(request.query.limit || 10);
   const offset = (page - 1) * limit;
-
   try {
     const postagens = await Postagens.findAndCountAll({
       limit,
@@ -52,7 +45,6 @@ export const getTodosPostagens = async (request, response) => {
     response.status(500).json({ message: "erro ao buscar postagens" });
   }
 };
-
 export const buscarPostagemPorId = async (request, response) => {
   const { id } = request.params;
 
