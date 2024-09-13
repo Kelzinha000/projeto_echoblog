@@ -2,13 +2,13 @@ import { request, response } from "express";
 import Postagens from "../Model/postagemModel.js";
 
 export const criarPostagem = async (request, response) => {
-  const { id, titulo, conteudo, autor} = request.body;
- 
-  let imagem 
-  if(request.file){
-    imagem = request.file.filename
-  }else{
-    imagem = "postagemDefaut.png"
+  const { id, titulo, conteudo, autor } = request.body;
+
+  let imagem;
+  if (request.file) {
+    imagem = request.file.filename;
+  } else {
+    imagem = "postagemDefaut.png";
   }
   const novoPostagem = {
     id,
@@ -57,8 +57,8 @@ export const buscarPostagemPorId = async (request, response) => {
   const { id } = request.params;
 
   try {
-    const PostagemId = await Postagem.findOne({ where: { id } });
-    if (Postagem === null) {
+    const PostagemId = await Postagens.findOne({ where: { id } });
+    if (Postagens === null) {
       response.status(404).json({ message: "Postagem não encontrada" });
       return;
     }

@@ -3,20 +3,16 @@ import conn from "../Config/Conn.js";
 import formatZodError from "../helpers/zodError.js";
 import { z } from "zod";
 
-
 const createShema = z.object({
-    Usuario: z
-      .string()
-      .min(3, { message: "O usuario deve ter pelo menos 8 caracteres" })
-      .transform((txt) => txt.toLocaleLowerCase()),
-  });
-  
-  const getShema = z.object({
-    papel: z.string(({ message: "papel do usuario" })),
-  });
-  
-  
-  
+  Usuario: z
+    .string()
+    .min(3, { message: "O usuario deve ter pelo menos 8 caracteres" })
+    .transform((txt) => txt.toLocaleLowerCase()),
+});
+
+const getShema = z.object({
+  papel: z.string({ message: "papel do usuario" }),
+});
 
 export const criarUsuario = async (request, response) => {
   const { id, nome, email, senha, papel } = request.body;
@@ -54,7 +50,7 @@ export const getAdm = async (request, response) => {
     });
     return;
   }
-  const {papel} = request.params
+  const { papel } = request.params;
   try {
     const usuarioPapel = await Usuarios.findOne({ where: { papel } });
     if (Usuarios === null) {
@@ -69,12 +65,11 @@ export const getAdm = async (request, response) => {
   }
 };
 
-
-export const atualizarPerfil = async (request, response)=>{
+export const atualizarPerfil = async (request, response) => {
   const { id } = request.params;
 
   try {
-    const usuario = await Usuario.findOne({ raw: true, where: { id } });
+    const usuario = await usuario.findOne({ raw: true, where: { id } });
     if (usuario === null) {
       response.status(404).json({ message: "Usuario não encontrada" });
       return;
@@ -87,11 +82,14 @@ export const atualizarPerfil = async (request, response)=>{
     }
 
     // novaConsulta
-    const usuarioAtualizada = await Usuario.findOne({ raw: true, where: { id } });
+    const usuarioAtualizada = await usuario.findOne({
+      raw: true,
+      where: { id },
+    });
     response.status(200).json(usuarioAtualizada);
     // console.log(tarefa.status);
   } catch (error) {
     console.error(error);
     response.status(500).json({ err: "Error ao atualizar tarefa" });
   }
-}
+};
