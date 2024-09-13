@@ -9,7 +9,6 @@ dotenv.config()
 //  })
 
 
-
     const conn = new Sequelize(
         db.bd, 
         db.user, 

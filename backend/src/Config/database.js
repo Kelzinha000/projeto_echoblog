@@ -11,7 +11,7 @@ let db = {
 
 if( process.env.NODE_ENV === 'test'){
     db={
-        bd: process.env.BD_DB, 
+        bd: process.env.BD_TEST_DB, 
         user: process.env.BD_TEST_USER, 
         password: process.env.BD_TEST_PASSWORD
     }
