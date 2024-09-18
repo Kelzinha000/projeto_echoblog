@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import conn from "./Config/Conn.js";
 
 import postagemModel from "./Model/postagemModel.js";
-
+import Comentario from "./Model/comentarioModel.js";
 
 import postagemRouter from "./Routes/postagemRouter.js";
 import usuarioRouter from "./Routes/usuarioRouter.js";
