@@ -1,13 +1,13 @@
 import { DataTypes } from "sequelize";
 import conn from "../Config/Conn.js";
 
-
-
+// para cada postagem o usuario precisa esta criado
+                               // como prof colocou : usuarios /nome, objeto 
 const Usuarios = conn.define("Usuarios",{ 
-    id:{
+    id:{  // usuario_id
         type:DataTypes.UUID, 
         defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+        primaryKey: true // reconhecer a chave primária 
 
     }, 
     nome:{
@@ -18,18 +18,23 @@ const Usuarios = conn.define("Usuarios",{
     email:{
         type:DataTypes.STRING, 
         allowNull: false, 
-        required: true 
+        unique: true, 
+        validate:{ // validação se é do tipo email 
+            isEmail:true 
+        }
     },
     senha :{
-        type:DataTypes.INTEGER, 
+        type:DataTypes.STRING,  // string 
         allowNull: false,
         required: true
     },
     papel:{
-        type:DataTypes.ENUM,
-        values:["leitor", "administrador", "autor"]
+        type:DataTypes.ENUM(["administrador", "autor", "leitor"]),
+        //values:["leitor", "administrador", "autor"]
     }
-
+}
+,{
+    tableName: "Usuarios"
 }) 
 
 

@@ -6,35 +6,42 @@ import bcrypt from 'bcrypt'
 import createToken from '../helpers/zodCreateToken.js'
 
 const createShema = z.object({
-  Usuario: z
-    .string()
-    .min(3, { message: "O usuario deve ter pelo menos 8 caracteres" })
-    .transform((txt) => txt.toLocaleLowerCase()),
+  nome: z.string().min(3, { message: "O usuario deve ter pelo menos 3 caracteres" }),
+  email:z.string().email({ message: "Email inválido" }), 
+  senha: z.string().min(3, { message: "O usuario deve ter pelo menos 8 caracteres" })
+
 });
 
-const getShema = z.object({
-  papel: z.string({ message: "papel do usuario" }),
-});
+// const getShema = z.object({
+//   papel: z.string({ message: "papel do usuario" }),
+// });
 
 export const criarUsuario = async (request, response) => {
-  const { id, nome, email, senha, papel } = request.body;
-  const bodyValidation = createShema.safeParse(request.body);
-
-  if (bodyValidation.success) {
-    response.status(404).json({
-      message: "Os dados recebidos do corpo da aplicação são inválidos",
-      detalhes: bodyValidation.error,
+  const bodyValidation = createShema.safeParse(request.body);// vai receber do corpo esas informações
+  if (!bodyValidation.success) {
+    response.status(400).json({
+      error: formatZodError(bodyValidation.error)
     });
     return;
   }
+
+  const {nome, email, senha} = request.body; 
+  const papel = request.body.papel || "leitor"; 
+
+  const salt = bcrypt.genSalt(12)
+  const senhaCrypt = bcrypt.hashSync(senha,salt)
+
   const novoUsuario = {
     id,
     nome,
     email,
-    senha,
+    senha: senhaCrypt,
     papel,
   };
   try {
+    // 1° verificar se existe um email 
+    const verificaEmail = await Usuarios.findOne({where:{email}})
+    //2° Cadastrar Usuário 
     await Usuarios.create(novoUsuario);
     response.status(201).json({ message: "Usuario Cadastrado" });
   } catch (error) {

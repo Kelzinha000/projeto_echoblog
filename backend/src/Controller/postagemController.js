@@ -1,9 +1,10 @@
 import { request, response } from "express";
 import Postagens from "../Model/postagemModel.js";
 
+
 export const criarPostagem = async (request, response) => {
   const { id, titulo, conteudo, autor } = request.body;
-
+ let imagem 
   const novoPostagem = {
     id,
     titulo,

@@ -19,11 +19,11 @@ const Postagem = conn.define("Postagens", {
     allowNull: false,
     required: true,
   },
-  autor: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    required: true,
-  },
+  // autor: { vai apagar, pq não existe mais na aplidação refatorando o código 
+  //   type: DataTypes.STRING,
+  //   allowNull: false,
+  //   required: true,
+  // },
   imagem: {
     type: DataTypes.BLOB,
     allowNull: false,
@@ -31,7 +31,7 @@ const Postagem = conn.define("Postagens", {
   },
 });
 
-Usuarios.hasMany(Postagem)
-Postagem.belongsTo(Usuarios)
+Usuarios.hasMany(Postagem, {foreignKey: 'usuarioId'})
+Postagem.belongsTo(Usuarios, {foreignKey: "usuarioId"})
 
 export default Postagem;

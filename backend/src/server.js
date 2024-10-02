@@ -43,8 +43,8 @@ app.use((request, response) => {
   response.status(404).json({ message: "Rota não encontrada" });
 });
 
-conn.sync().then(() => {
+conn.sync(/*{force:true}*/).then(() => {
   app.listen(PORT, () => {
     console.log(`Servidor on http://localhost:${PORT}`);
-  });
+  }); 
 });
