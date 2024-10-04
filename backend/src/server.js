@@ -6,10 +6,10 @@ import { fileURLToPath } from "node:url";
 
 //conexão
 import conn from "./Config/Conn.js";
-
+// Models
 import postagemModel from "./Model/postagemModel.js";
 import Comentario from "./Model/comentarioModel.js";
-
+//Rotas
 import postagemRouter from "./Routes/postagemRouter.js";
 import usuarioRouter from "./Routes/usuarioRouter.js";
 

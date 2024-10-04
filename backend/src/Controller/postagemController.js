@@ -1,15 +1,26 @@
 import { request, response } from "express";
 import Postagens from "../Model/postagemModel.js";
+import getToken from "../helpers/get-token.js";
+
+// const createShema = z.object({
+//   id: z.min(3, { message: "O usuario deve ter pelo menos 3 caracteres" }),
+// })
 
 
 export const criarPostagem = async (request, response) => {
-  const { id, titulo, conteudo, autor } = request.body;
+  const token = getToken(request)//
+  const usuario = await getUserByToken(token)
+  
+  //return console.log(usuario)
+  
+  const createValidation = createShema.safeParse(request.body)
+  const { id, titulo, conteudo, /*autor*/ } = request.body;
  let imagem 
   const novoPostagem = {
     id,
     titulo,
     conteudo,
-    autor,
+    /*autor,*/
     imagem,
   };
   try {

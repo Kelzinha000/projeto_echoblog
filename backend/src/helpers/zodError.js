@@ -1,7 +1,7 @@
-const formatZodError = () => {
+const formatZodError = (error) => {
   const erroFormatado = {};
 
-  error.erros.forEach((err) => {
+  error.errors.forEach((err) => {
     const path = err.path[0];
     if (!erroFormatado[path]) {
       erroFormatado[path] = [];
